@@ -1,0 +1,26 @@
+workflows:
+  flutter_debug_apk:
+    name: Flutter Debug APK
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: 15.0
+      vars:
+        ANDROID_BUILD_DIR: "build/app/outputs/flutter-apk"
+    scripts:
+      - name: Flutter pub get
+        script: |
+          flutter --version
+          flutter pub get
+      - name: Build debug APK
+        script: |
+          flutter build apk --debug
+    artifacts:
+      - build/app/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - trijnbout@gmail.com
+        notify:
+          success: true
+          failure: true
